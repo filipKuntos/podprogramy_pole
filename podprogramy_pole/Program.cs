@@ -23,7 +23,7 @@ int jedna(int[] arr)
     return pocet;
 }
 
-int[] pole = new int[] { 2, 1, 8, 3 };
+int[] pole = new int[] { 2, 1, 8, 2 };
 Console.WriteLine("počet prvků");
 Console.WriteLine(jedna(pole));
 
@@ -101,7 +101,7 @@ int sest(int[] arr)
 Console.WriteLine("Aritmetický průměr");
 Console.WriteLine(sest(pole));
 
-//ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+
 double sedm(double[] arr)
 {
     double geo = 1;
@@ -109,7 +109,7 @@ double sedm(double[] arr)
     {
         geo *= i;
     }
-    geo = Math.Sqrt(geo) * (1 / arr.Length);
+    geo =Math.Pow(geo, 1d / arr.Length);
     return geo;
 }
 
@@ -117,9 +117,8 @@ double[] pole_double = new double[] { 2, 1, 8, 3 };
 Console.WriteLine("Geometrický průměr");
 Console.WriteLine(sedm(pole_double));
 
-//ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 
-double osm(int[] arr)
+double osm(double[] arr)
 {
     Array.Sort(arr);
     double median = 0;
@@ -140,4 +139,78 @@ double osm(int[] arr)
 }
 
 Console.WriteLine("Medián");
-Console.WriteLine(osm(pole));
+Console.WriteLine(osm(pole_double));
+
+string devet(int[] arr)
+{
+    int index = arr.Length;
+    int index_konec = 0;
+    for (int i = index; i == index;)
+    {
+        index_konec = i;
+        break;
+    }
+    string vyskyt = "";
+    for (int i = 0; i < index_konec; i++)
+    {
+        int pocet = 0;
+        for (int j = 0; j < arr.Length; j++)
+        {
+            if (arr[i] == arr[j])
+            {
+                pocet += 1;
+            }
+        }
+        vyskyt += pocet + " ";
+    }
+    return vyskyt;
+}
+
+Console.WriteLine("Četnost výskytu všech hodnot");
+Console.WriteLine(devet(pole));
+
+
+string deset(int[] arr)
+{
+    int prumer = sest(arr);
+    string odchylka = "";
+    for (int i = 0; i < arr.Length; i++)
+    {
+        odchylka += i - prumer + " ";
+    }
+
+    return odchylka;
+}
+
+Console.WriteLine("Pole odchylek všech prvků od dané hodnoty");
+Console.WriteLine(deset(pole));
+
+
+int jedenact(int[] arr)
+{
+    int rozptyl = 0;
+    int odchylka = 0;
+    for (int i = 0; i < arr.Length; i++)
+    {
+        int prumer = sest(arr);
+        odchylka += prumer * prumer;
+    }
+    rozptyl = odchylka / arr.Length;
+    return rozptyl;
+}
+
+Console.WriteLine("rozptyl");
+Console.WriteLine(jedenact(pole));
+
+
+double dvanact(int[] arr)
+{
+    int rozptyl = jedenact(arr);
+    double odchylka = Math.Sqrt(rozptyl);
+    return odchylka;
+}
+
+Console.WriteLine("Směrodatnou odchylku");
+Console.WriteLine(dvanact(pole));
+
+
