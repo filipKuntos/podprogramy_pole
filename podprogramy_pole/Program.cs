@@ -23,7 +23,14 @@ int jedna(int[] arr)
     return pocet;
 }
 
-int[] pole = new int[] { 2, 1, 8, 2 };
+int[] pole = new int[2] { 2, 8 };
+double[] pole_double = new double[pole.Length];
+int index = 0;
+foreach (int i in pole)
+{
+    pole_double[index] = i;
+    index++;
+}
 Console.WriteLine("počet prvků");
 Console.WriteLine(jedna(pole));
 
@@ -44,7 +51,7 @@ Console.WriteLine(dva(pole));
 
 int tri(int[] arr)
 {
-    int min = Int32.MaxValue;
+    int min = arr.Length > 0?Int32.MaxValue : 0;
     foreach (int i in arr)
     {
         if (i < min)
@@ -55,7 +62,7 @@ int tri(int[] arr)
     return min;
 }
 
-Console.WriteLine("maximum");
+Console.WriteLine("minimum");
 Console.WriteLine(tri(pole));
 
 
@@ -75,7 +82,7 @@ Console.WriteLine(ctyri(pole));
 
 int pet(int[] arr)
 {
-    int soucin = 1;
+    int soucin = arr.Length > 0 ? 1 : 0;
     foreach (int i in arr)
     {
         soucin *= i;
@@ -90,11 +97,12 @@ Console.WriteLine(pet(pole));
 int sest(int[] arr)
 {
     int art = 0;
+    int index = arr.Length > 0 ? arr.Length : 1;
     foreach (int i in arr)
     {
         art += i;
     }
-    art = art / arr.Length;
+    art = art / index;
     return art;
 }
 
@@ -102,20 +110,21 @@ Console.WriteLine("Aritmetický průměr");
 Console.WriteLine(sest(pole));
 
 
-double sedm(double[] arr)
+double sedm(int[] arr)
 {
-    double geo = 1;
+    double geo = arr.Length > 0 ? 1 : 0;
     foreach (int i in arr)
     {
-        geo *= i;
+
+        geo *= Math.Abs(i);
     }
     geo =Math.Pow(geo, 1d / arr.Length);
     return geo;
 }
 
-double[] pole_double = new double[] { 2, 1, 8, 3 };
+
 Console.WriteLine("Geometrický průměr");
-Console.WriteLine(sedm(pole_double));
+Console.WriteLine(sedm(pole));
 
 
 double osm(double[] arr)
@@ -123,17 +132,18 @@ double osm(double[] arr)
     Array.Sort(arr);
     double median = 0;
     int index = arr.Length % 2 == 0 ? arr.Length / 2 - 1 : arr.Length / 2;
+    if (arr.Length > 0) { 
 
-    if (arr.Length % 2 == 0)
-    {
-        median = (arr[index] + arr[index + 1]) / 2;
+        if (arr.Length % 2 == 0)
+        {
+            median = (arr[index] + arr[index + 1]) / 2;
+        }
+        else
+        {
+
+            median = arr[index];
+        }
     }
-    else
-    {
-
-        median = arr[index];
-    }
-
 
     return median;
 }
@@ -144,27 +154,31 @@ Console.WriteLine(osm(pole_double));
 string devet(int[] arr)
 {
     int index = arr.Length;
-    int index_konec = 0;
-    for (int i = index; i == index;)
-    {
-        index_konec = i;
-        break;
-    }
+
     string vyskyt = "";
-    for (int i = 0; i < index_konec; i++)
+    if (arr.Length > 0)
     {
-        int pocet = 0;
-        for (int j = 0; j < arr.Length; j++)
+
+    
+        for (int i = 0; i < index; i++)
         {
-            if (arr[i] == arr[j])
+            int pocet = 0;
+            for (int j = 0; j < arr.Length; j++)
             {
-                pocet += 1;
+                if (arr[i] == arr[j])
+                {
+                    pocet += 1;
+                }
             }
+            vyskyt += pocet + " ";
         }
-        vyskyt += pocet + " ";
+        return vyskyt;
     }
-    return vyskyt;
+    return "1";
+    
 }
+
+
 
 Console.WriteLine("Četnost výskytu všech hodnot");
 Console.WriteLine(devet(pole));
@@ -174,12 +188,17 @@ string deset(int[] arr)
 {
     int prumer = sest(arr);
     string odchylka = "";
-    for (int i = 0; i < arr.Length; i++)
-    {
-        odchylka += i - prumer + " ";
+    if (arr.Length > 0) 
+    { 
+        for (int i = 0; i < arr.Length; i++)
+        {
+            odchylka += i - prumer + " ";
+        }
+        return odchylka;
     }
-
-    return odchylka;
+    return "0";
+    
+    
 }
 
 Console.WriteLine("Pole odchylek všech prvků od dané hodnoty");
@@ -189,13 +208,14 @@ Console.WriteLine(deset(pole));
 int jedenact(int[] arr)
 {
     int rozptyl = 0;
+    int index = arr.Length > 0 ? arr.Length : 1;
     int odchylka = 0;
     for (int i = 0; i < arr.Length; i++)
     {
         int prumer = sest(arr);
         odchylka += prumer * prumer;
     }
-    rozptyl = odchylka / arr.Length;
+    rozptyl = odchylka / index;
     return rozptyl;
 }
 
